@@ -1,11 +1,12 @@
 const router = require('express').Router();
-const { register, login, logout, deleteAccount, verifyEmail } = require('../controllers/auth.controller');   
+const { register, login, logout, deleteAccount, verifyEmail, resendOtp } = require('../controllers/auth.controller');   
 const {authenticate} = require('../middlewares/authenticate');
 const { refreshTokenController } = require('../utils/generateTokens');
 const { loginLimiter, otpLimiter } = require('../utils/limiters');
 
 router.post('/register', register);
 router.post('/verify-otp',otpLimiter, verifyEmail);
+router.post('/resend-otp',otpLimiter, resendOtp);
 
 router.post('/login',loginLimiter, login);
 router.post('/logout', logout);
